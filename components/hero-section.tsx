@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { TextEffect } from "@/components/ui/text-effect";
 import { AnimatedGroup } from "@/components/ui/animated-group";
-import { HeroHeader } from "@/components/hero5-header";
+import { getCompanyDetails } from "@/lib/data/queries";
 
 const transitionVariants = {
   item: {
@@ -18,7 +18,7 @@ const transitionVariants = {
       filter: "blur(0px)",
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         bounce: 0.3,
         duration: 1.5,
       },
@@ -26,10 +26,11 @@ const transitionVariants = {
   },
 };
 
-export default function HeroSection() {
+export default async function HeroSection() {
+  const details = await getCompanyDetails();
+
   return (
     <>
-      <HeroHeader />
       <main className="overflow-hidden">
         <div
           aria-hidden
@@ -46,7 +47,7 @@ export default function HeroSection() {
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 <AnimatedGroup variants={transitionVariants}>
                   <p className="hover:bg-background dark:hover:border-t-border tracking-wider text-foreground text-sm uppercase bg-muted group mx-auto flex justify-center w-fit text-center items-center gap-4 rounded-full border px-3 py-1 mb-6 md:mb-10 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950">
-                    Berinovasi Sejak 2010
+                    Berinovasi Sejak {details.foundedYear}
                   </p>
                 </AnimatedGroup>
 

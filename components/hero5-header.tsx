@@ -7,13 +7,14 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { name: "Features", href: "#features" },
-  { name: "Team", href: "#team" },
-  { name: "Review", href: "#review" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Team", href: "/team" },
+  { name: "Contact", href: "/contact" },
 ];
 
-export const HeroHeader = () => {
+export default function HeroHeader() {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -94,15 +95,10 @@ export const HeroHeader = () => {
                 </ul>
               </div>
 
-              <div className="w-full grid grid-cols-2 gap-3 md:flex md:flex-col lg:flex-row md:space-y-1">
-                <Button asChild variant="outline" size="sm">
-                  <Link href="#">
-                    <span>Login</span>
-                  </Link>
-                </Button>
+              <div className="w-full flex justify-center md:flex md:flex-col lg:flex-row md:space-y-1">
                 <Button asChild size="sm">
-                  <Link href="#">
-                    <span>Sign Up</span>
+                  <Link href="/contact">
+                    <span>Get Started</span>
                   </Link>
                 </Button>
               </div>
@@ -112,4 +108,4 @@ export const HeroHeader = () => {
       </nav>
     </header>
   );
-};
+}

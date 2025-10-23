@@ -1,0 +1,23 @@
+CREATE TABLE "team_members" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"first_name" varchar(100) NOT NULL,
+	"last_name" varchar(100) NOT NULL,
+	"display_name" varchar(200) NOT NULL,
+	"job_title" varchar(150) NOT NULL,
+	"department" varchar(100),
+	"bio" text,
+	"avatar_url" varchar(500),
+	"linkedin_url" varchar(300),
+	"instagram_url" varchar(300),
+	"github_url" varchar(300),
+	"twitter_url" varchar(300),
+	"website_url" varchar(300),
+	"email" varchar(255),
+	"phone" varchar(20),
+	"start_date" timestamp,
+	"is_active" boolean DEFAULT true,
+	"is_public" boolean DEFAULT true,
+	"sort_order" integer DEFAULT 0,
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp DEFAULT now()
+);

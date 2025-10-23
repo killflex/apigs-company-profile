@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 
+import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SmoothScroll } from "@/components/utils/smooth-scroll";
+import { Toaster } from "sonner";
 
 const fontPoppins = Poppins({
   subsets: ["latin"],
@@ -28,20 +30,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${fontPoppins.className} antialiased`}>
-        <SmoothScroll>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ModeToggle />
-            {children}
-          </ThemeProvider>
-        </SmoothScroll>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#000000",
+        },
+      }}
+      signInUrl="/auth/sign-in"
+      signUpUrl=""
+    >
+      <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+        <body className={`${fontPoppins.className} antialiased`}>
+          <SmoothScroll>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ModeToggle />
+              {children}
+              <Toaster richColors position="top-right" />
+            </ThemeProvider>
+          </SmoothScroll>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
