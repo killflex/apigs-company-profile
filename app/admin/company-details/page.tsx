@@ -7,18 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import {
-  Building2,
-  Users,
-  Award,
-  Target,
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Globe,
-  Save,
-} from "lucide-react";
+import { Building2, Target, MapPin, Clock, Globe, Save } from "lucide-react";
 
 interface CompanyDetailsForm {
   // Stats

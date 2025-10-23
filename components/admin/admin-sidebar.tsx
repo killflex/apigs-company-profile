@@ -11,7 +11,6 @@ import {
   Building2,
   Quote,
   Users,
-  Settings,
 } from "lucide-react";
 
 interface SerializableUserProfile {

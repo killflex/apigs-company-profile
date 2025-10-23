@@ -15,7 +15,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -24,18 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Plus,
-  Edit,
-  Trash2,
-  Eye,
-  ExternalLink,
-  Calendar,
-  Users,
-  Tag,
-  Save,
-  X,
-} from "lucide-react";
+import { Plus, Edit, Trash2, Save, X } from "lucide-react";
 import { toast } from "sonner";
 
 // Form validation schema

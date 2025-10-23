@@ -9,15 +9,7 @@ import {
 } from "@/lib/db/schema";
 import { count, eq } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  FolderOpen,
-  MessageSquare,
-  TrendingUp,
-  Users,
-  Eye,
-  Quote,
-  Building2,
-} from "lucide-react";
+import { FolderOpen, MessageSquare, Users, Quote } from "lucide-react";
 
 async function getDashboardStats() {
   const [projectCount, pendingInquiryCount, testimonialsCount, teamCount] =
@@ -93,7 +85,6 @@ function DashboardSkeleton() {
 
 async function DashboardContent() {
   const stats = await getDashboardStats();
-  const user = await currentUser();
 
   return (
     <div className="space-y-6">

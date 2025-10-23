@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -16,11 +16,8 @@ import {
   Phone,
   Building,
   Calendar,
-  User,
   MessageSquare,
   Search,
-  Filter,
-  Eye,
   CheckCircle,
   Clock,
   AlertCircle,
@@ -121,7 +118,7 @@ export default function InquiryManagement() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Fetch inquiries from API
-  const fetchInquiries = async () => {
+  const fetchInquiries = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({
@@ -150,12 +147,12 @@ export default function InquiryManagement() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchTerm, filterStatus, filterPriority, filterType]);
 
   // Fetch inquiries on mount and when filters change
   useEffect(() => {
     fetchInquiries();
-  }, [searchTerm, filterStatus, filterPriority, filterType]);
+  }, [fetchInquiries]);
 
   const handleOpenDeleteDialog = (id: string) => {
     setInquiryToDelete(id);
@@ -235,7 +232,12 @@ export default function InquiryManagement() {
 
     setIsSaving(true);
     try {
-      const updateData: any = {
+      const updateData: {
+        status: string;
+        priority: string;
+        notes: string | null;
+        followUpDate?: string;
+      } = {
         status: editForm.status,
         priority: editForm.priority,
         notes: editForm.notes || null,

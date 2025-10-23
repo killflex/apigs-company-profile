@@ -97,9 +97,14 @@ export async function POST(request: NextRequest) {
     let errorCode = "UNKNOWN";
 
     if (error && typeof error === "object") {
-      const err = error as any;
+      const err = error as {
+        message?: string;
+        error?: { message?: string; http_code?: string | number };
+        http_code?: string | number;
+        toString: () => string;
+      };
       errorDetails = err.message || err.error?.message || err.toString();
-      errorCode = err.http_code || err.error?.http_code || "UNKNOWN";
+      errorCode = String(err.http_code || err.error?.http_code || "UNKNOWN");
 
       if (err.error) {
         console.error("Cloudinary error details:", err.error);

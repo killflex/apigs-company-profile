@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   // Fetch all data in parallel for optimal performance
-  const { company, team } = await getAboutPageData();
+  const { company } = await getAboutPageData();
   return (
     <>
       {/* Reuse existing hero but with different content focus */}

@@ -27,7 +27,7 @@ export default async function AdminLayout({
     <div className="flex h-screen bg-background">
       <AdminSidebar userProfile={serializableUserProfile} />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <AdminHeader userProfile={serializableUserProfile} />
+        <AdminHeader />
         <main className="flex-1 overflow-y-auto p-6">
           {children}
           <Toaster richColors position="top-right" />

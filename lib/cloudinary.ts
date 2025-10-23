@@ -1,4 +1,8 @@
-import { v2 as cloudinary } from "cloudinary";
+import {
+  v2 as cloudinary,
+  UploadApiErrorResponse,
+  UploadApiResponse,
+} from "cloudinary";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -50,10 +54,10 @@ export async function uploadImage(
   buffer: Buffer,
   options: {
     folder?: string;
-    transformation?: any[];
+    transformation?: Array<Record<string, string | number>>;
     resource_type?: "auto" | "image" | "video" | "raw";
   } = {}
-): Promise<any> {
+): Promise<UploadApiResponse> {
   const {
     folder = "uploads",
     transformation = [
@@ -73,11 +77,13 @@ export async function uploadImage(
           transformation,
           resource_type,
         },
-        (error: any, result: any) => {
+        (
+          error: UploadApiErrorResponse | undefined,
+          result: UploadApiResponse | undefined
+        ) => {
           if (error) {
             console.error("Cloudinary stream error:", {
               message: error.message,
-              http_code: error.http_code,
               name: error.name,
               error: error,
             });
@@ -122,7 +128,9 @@ export async function uploadImage(
 }
 
 // Delete image
-export async function deleteImage(publicId: string): Promise<any> {
+export async function deleteImage(publicId: string): Promise<{
+  result: string;
+}> {
   try {
     const result = await cloudinary.uploader.destroy(publicId);
     console.log("Cloudinary delete result:", result);

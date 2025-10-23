@@ -21,8 +21,6 @@ const contactSchema = z.object({
     .max(2000),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
-
 // GET /api/contact - Test endpoint
 export async function GET() {
   return NextResponse.json(
@@ -183,12 +181,18 @@ export async function POST(request: Request) {
 
       console.log("✅ Admin notification email sent:", adminEmail.data?.id);
       console.log("📧 Email details:", JSON.stringify(adminEmail, null, 2));
-    } catch (emailError: any) {
+    } catch (emailError) {
       console.error("❌ Failed to send admin email:", emailError);
       console.error("📧 Email error details:", {
-        message: emailError?.message,
-        statusCode: emailError?.statusCode,
-        name: emailError?.name,
+        message:
+          emailError instanceof Error ? emailError.message : "Unknown error",
+        statusCode:
+          typeof emailError === "object" &&
+          emailError !== null &&
+          "statusCode" in emailError
+            ? emailError.statusCode
+            : undefined,
+        name: emailError instanceof Error ? emailError.name : "Unknown",
       });
       // Don't fail the request if email fails
     }
@@ -279,12 +283,18 @@ export async function POST(request: Request) {
 
       console.log("✅ User confirmation email sent:", userEmail.data?.id);
       console.log("📧 User email details:", JSON.stringify(userEmail, null, 2));
-    } catch (emailError: any) {
+    } catch (emailError) {
       console.error("❌ Failed to send user confirmation email:", emailError);
       console.error("📧 User email error details:", {
-        message: emailError?.message,
-        statusCode: emailError?.statusCode,
-        name: emailError?.name,
+        message:
+          emailError instanceof Error ? emailError.message : "Unknown error",
+        statusCode:
+          typeof emailError === "object" &&
+          emailError !== null &&
+          "statusCode" in emailError
+            ? emailError.statusCode
+            : undefined,
+        name: emailError instanceof Error ? emailError.name : "Unknown",
       });
       // Don't fail the request if email fails
     }

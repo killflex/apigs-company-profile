@@ -81,7 +81,7 @@ export default function ContactForm() {
           responseData.details
         ) {
           const errorMessages = responseData.details
-            .map((err: any) => err.message)
+            .map((err: { message: string }) => err.message)
             .join(", ");
           throw new Error(errorMessages);
         }
