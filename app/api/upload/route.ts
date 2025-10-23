@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server";
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       uploadStream.end(buffer);
     });
 
-    const result = uploadResponse as any;
+    const result = uploadResponse as UploadApiResponse;
 
     // Return Cloudinary URL and metadata
     return NextResponse.json({

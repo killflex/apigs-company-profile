@@ -110,7 +110,13 @@ export async function PATCH(request: NextRequest) {
     const { status, priority, notes, followUpDate } = body;
 
     // Update inquiry
-    const updateData: any = {
+    const updateData: {
+      updatedAt: Date;
+      status?: string;
+      priority?: string;
+      notes?: string | null;
+      followUpDate?: Date | null;
+    } = {
       updatedAt: new Date(),
     };
 
