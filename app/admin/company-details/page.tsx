@@ -136,7 +136,12 @@ export default function CompanyDetailsPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold">Company Details</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Company Details</h1>
+          <p className="text-muted-foreground mt-1">
+            Manage company information and statistics
+          </p>
+        </div>
         <div className="grid gap-6">
           {[...Array(3)].map((_, i) => (
             <Card key={i}>
@@ -155,9 +160,9 @@ export default function CompanyDetailsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between bg-background py-4 -mt-4">
         <div>
-          <h1 className="text-3xl font-bold">Company Details</h1>
+          <h1 className="text-2xl font-bold">Company Details</h1>
           <p className="text-muted-foreground mt-1">
             Manage company information and statistics
           </p>

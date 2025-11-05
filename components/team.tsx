@@ -41,6 +41,7 @@ export default async function TeamSection() {
                   alt={member.displayName}
                   width={826}
                   height={1239}
+                  unoptimized
                 />
                 <div className="px-2 pt-2 sm:pb-0 sm:pt-4">
                   <div className="flex justify-between">

@@ -180,7 +180,12 @@ export default function TestimonialsPage() {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Testimonials</h1>
+          <div>
+            <h1 className="text-2xl font-semibold">Testimonials</h1>
+            <p className="text-muted-foreground">
+              Manage client testimonials and reviews
+            </p>
+          </div>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
@@ -207,7 +212,12 @@ export default function TestimonialsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Testimonials</h1>
+        <div>
+          <h1 className="text-2xl font-semibold">Testimonials</h1>
+          <p className="text-muted-foreground">
+            Manage client testimonials and reviews
+          </p>
+        </div>
         <Dialog
           open={isCreateDialogOpen}
           onOpenChange={(open) => {

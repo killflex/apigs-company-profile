@@ -114,7 +114,10 @@ export default function PortfolioClient() {
           {loading ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[...Array(6)].map((_, i) => (
-                <Card key={i} className="overflow-hidden">
+                <Card
+                  key={i}
+                  className="rounded-xl border gap-0 p-0 shadow-sm hover:shadow-lg transition-shadow overflow-hidden"
+                >
                   <div className="aspect-video bg-muted animate-pulse" />
                   <CardHeader>
                     <div className="h-6 bg-muted rounded animate-pulse" />
@@ -137,7 +140,7 @@ export default function PortfolioClient() {
                   return (
                     <Card
                       key={project.id}
-                      className="hover:shadow-lg transition-shadow overflow-hidden"
+                      className="rounded-xl border py-0 shadow-sm hover:shadow-lg transition-shadow overflow-hidden "
                     >
                       <div className="aspect-video bg-muted relative">
                         {project.image && (
@@ -159,7 +162,7 @@ export default function PortfolioClient() {
                           {project.title}
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="space-y-3">
+                      <CardContent className="space-y-3 mb-6">
                         <p className="text-sm text-muted-foreground line-clamp-3">
                           {project.description}
                         </p>

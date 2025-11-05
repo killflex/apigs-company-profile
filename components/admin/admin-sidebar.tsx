@@ -11,6 +11,7 @@ import {
   Building2,
   Quote,
   Users,
+  FileText,
 } from "lucide-react";
 
 interface SerializableUserProfile {
@@ -37,6 +38,11 @@ const navigation = [
     icon: FolderOpen,
   },
   {
+    name: "Blog",
+    href: "/admin/blog",
+    icon: FileText,
+  },
+  {
     name: "Inquiries",
     href: "/admin/inquiries",
     icon: MessageSquare,
@@ -61,7 +67,7 @@ export default function AdminSidebar({ userProfile }: AdminSidebarProps) {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-full w-64 flex-col bg-muted/20 border-r border-border">
+    <div className="flex h-screen w-64 flex-col bg-muted/20 border-r border-border">
       {/* Logo/Brand */}
       <div className="flex h-16 justify-center items-center px-6 border-b border-border">
         <Link

@@ -143,6 +143,31 @@ export const companyDetails = pgTable("company_details", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Blog Posts Table
+export const blogPosts = pgTable("blog_posts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  excerpt: text("excerpt"), // Short summary for card display
+  content: text("content").notNull(), // Main blog content
+  featuredImage: varchar("featured_image", { length: 500 }), // Cloudinary URL
+  featuredImagePublicId: varchar("featured_image_public_id", { length: 255 }), // For deletion
+  gallery:
+    jsonb("gallery").$type<
+      Array<{ url: string; publicId: string; caption?: string }>
+    >(), // Photo gallery
+  category: varchar("category", { length: 100 }), // Technology, Tutorial, Case Study, etc.
+  tags: jsonb("tags").$type<string[]>(), // Array of tags
+  author: varchar("author", { length: 200 }).notNull(), // Author name
+  authorId: varchar("author_id", { length: 255 }), // Clerk user ID
+  status: varchar("status", { length: 20 }).notNull().default("draft"), // draft, published
+  featured: boolean("featured").default(false), // Show on homepage
+  viewCount: integer("view_count").default(0), // Track popularity
+  publishedAt: timestamp("published_at"), // When published
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Relations
 export const categoriesRelations = relations(categories, ({ many }) => ({
   projects: many(projects),
@@ -173,3 +198,6 @@ export type NewTeamMember = typeof teamMembers.$inferInsert;
 
 export type CompanyDetail = typeof companyDetails.$inferSelect;
 export type NewCompanyDetail = typeof companyDetails.$inferInsert;
+
+export type BlogPost = typeof blogPosts.$inferSelect;
+export type NewBlogPost = typeof blogPosts.$inferInsert;

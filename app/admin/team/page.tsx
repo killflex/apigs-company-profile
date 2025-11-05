@@ -614,7 +614,12 @@ export default function TeamPage() {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Team Members</h1>
+          <div>
+            <h1 className="text-2xl font-semibold">Team Members</h1>
+            <p className="text-muted-foreground">
+              Manage your team members and their profiles
+            </p>
+          </div>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
@@ -638,7 +643,12 @@ export default function TeamPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Team Members</h1>
+        <div>
+          <h1 className="text-2xl font-semibold">Team Members</h1>
+          <p className="text-muted-foreground">
+            Manage your team members and their profiles
+          </p>
+        </div>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={resetForm}>
@@ -680,13 +690,13 @@ export default function TeamPage() {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {teamMembers.map((member) => (
             <Card key={member.id}>
-              <CardContent className="p-6">
-                <div className="space-y-4">
+              <CardContent>
+                <div className="space-y-3">
                   <div className="flex items-center justify-center">
-                    <Avatar className="h-20 w-20">
+                    <Avatar className="h-16 w-16">
                       <AvatarImage
                         src={getBestAvatarUrl(
                           member.avatarPublicId,
@@ -702,9 +712,11 @@ export default function TeamPage() {
                     </Avatar>
                   </div>
 
-                  <div className="text-center space-y-2">
-                    <h3 className="font-semibold">{member.displayName}</h3>
-                    <p className="text-sm text-muted-foreground">
+                  <div className="text-center space-y-1">
+                    <h3 className="font-semibold text-sm">
+                      {member.displayName}
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
                       {member.jobTitle}
                     </p>
                     {member.department && (
@@ -714,67 +726,87 @@ export default function TeamPage() {
                     )}
                   </div>
 
-                  <div className="flex justify-center space-x-2">
+                  <div className="flex justify-center space-x-1">
                     {member.linkedinUrl && (
-                      <Button variant="ghost" size="sm" asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 w-7 p-0"
+                        asChild
+                      >
                         <a
                           href={member.linkedinUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Linkedin className="h-4 w-4" />
+                          <Linkedin className="h-3.5 w-3.5" />
                         </a>
                       </Button>
                     )}
                     {member.instagramUrl && (
-                      <Button variant="ghost" size="sm" asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 w-7 p-0"
+                        asChild
+                      >
                         <a
                           href={member.instagramUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Instagram className="h-4 w-4" />
+                          <Instagram className="h-3.5 w-3.5" />
                         </a>
                       </Button>
                     )}
                     {member.githubUrl && (
-                      <Button variant="ghost" size="sm" asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 w-7 p-0"
+                        asChild
+                      >
                         <a
                           href={member.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Github className="h-4 w-4" />
+                          <Github className="h-3.5 w-3.5" />
                         </a>
                       </Button>
                     )}
                   </div>
 
-                  <div className="flex justify-between items-center pt-4 border-t">
-                    <div className="flex space-x-1">
+                  <div className="flex justify-between items-center pt-3 border-t">
+                    <div className="flex flex-wrap gap-1">
                       {!member.isActive && (
-                        <span className="px-2 py-1 text-xs bg-red-100 text-red-800 rounded">
+                        <span className="px-1.5 py-0.5 text-xs bg-red-100 text-red-800 rounded">
                           Inactive
                         </span>
                       )}
                       {!member.isPublic && (
-                        <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded">
+                        <span className="px-1.5 py-0.5 text-xs bg-gray-100 text-gray-800 rounded">
                           Private
                         </span>
                       )}
                     </div>
-                    <div className="flex space-x-1">
+                    <div className="flex space-x-0.5">
                       <Button
                         variant="ghost"
                         size="sm"
+                        className="h-7 w-7 p-0"
                         onClick={() => handleEdit(member)}
                       >
-                        <Edit className="h-4 w-4" />
+                        <Edit className="h-3.5 w-3.5" />
                       </Button>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="ghost" size="sm">
-                            <Trash2 className="h-4 w-4" />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 w-7 p-0"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>

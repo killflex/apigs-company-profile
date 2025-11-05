@@ -28,7 +28,7 @@ export default async function AboutPage() {
         <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-16 lg:space-y-20">
           <div className="relative z-10 mx-auto max-w-3xl space-y-6 text-center">
             <h1 className="text-balance text-4xl font-semibold lg:text-6xl">
-              Tentang APIGS
+              Tentang APIGS Indonesia
             </h1>
             <p className="text-lg text-muted-foreground">
               {company.tagline ||

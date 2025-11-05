@@ -5,34 +5,57 @@ import {
   inquiries,
   testimonials,
   teamMembers,
+  blogPosts,
 } from "@/lib/db/schema";
 import { count, eq } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FolderOpen, MessageSquare, Users, Quote } from "lucide-react";
+import {
+  FolderOpen,
+  MessageSquare,
+  Users,
+  Quote,
+  FileText,
+} from "lucide-react";
 
 async function getDashboardStats() {
-  const [projectCount, pendingInquiryCount, testimonialsCount, teamCount] =
-    await Promise.all([
-      db
-        .select({ count: count() })
-        .from(projects)
-        .where(eq(projects.isActive, true)),
-      db
-        .select({ count: count() })
-        .from(inquiries)
-        .where(eq(inquiries.status, "new")),
-      db.select({ count: count() }).from(testimonials),
-      db
-        .select({ count: count() })
-        .from(teamMembers)
-        .where(eq(teamMembers.isActive, true)),
-    ]);
+  const [
+    projectCount,
+    pendingInquiryCount,
+    testimonialsCount,
+    teamCount,
+    publishedBlogCount,
+    draftBlogCount,
+  ] = await Promise.all([
+    db
+      .select({ count: count() })
+      .from(projects)
+      .where(eq(projects.isActive, true)),
+    db
+      .select({ count: count() })
+      .from(inquiries)
+      .where(eq(inquiries.status, "new")),
+    db.select({ count: count() }).from(testimonials),
+    db
+      .select({ count: count() })
+      .from(teamMembers)
+      .where(eq(teamMembers.isActive, true)),
+    db
+      .select({ count: count() })
+      .from(blogPosts)
+      .where(eq(blogPosts.status, "published")),
+    db
+      .select({ count: count() })
+      .from(blogPosts)
+      .where(eq(blogPosts.status, "draft")),
+  ]);
 
   return {
     projects: projectCount[0].count,
     pendingInquiries: pendingInquiryCount[0].count,
     testimonials: testimonialsCount[0].count,
     activeTeamMembers: teamCount[0].count,
+    publishedBlogs: publishedBlogCount[0].count,
+    draftBlogs: draftBlogCount[0].count,
   };
 }
 
@@ -64,8 +87,8 @@ function StatsCard({
 function DashboardSkeleton() {
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {[...Array(3)].map((_, i) => (
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {[...Array(5)].map((_, i) => (
           <Card key={i}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <div className="h-4 w-20 bg-muted rounded animate-pulse" />
@@ -92,7 +115,7 @@ async function DashboardContent() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <StatsCard
           title="Active Projects"
           value={stats.projects}
@@ -106,11 +129,27 @@ async function DashboardContent() {
           description="Pending responses"
         />
         <StatsCard
+          title="Published Blogs"
+          value={stats.publishedBlogs}
+          icon={FileText}
+          description="Published blog posts"
+        />
+        <StatsCard
+          title="Draft Blogs"
+          value={stats.draftBlogs}
+          icon={FileText}
+          description="Draft blog posts"
+        />
+        <StatsCard
           title="Testimonials"
           value={stats.testimonials}
           icon={Quote}
           description="Client testimonials"
         />
+      </div>
+
+      {/* Secondary Stats */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <StatsCard
           title="Team Members"
           value={stats.activeTeamMembers}
